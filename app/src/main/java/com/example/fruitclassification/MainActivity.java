@@ -26,13 +26,14 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 import com.example.fruitclassification.ml.Model;
+import com.example.fruitclassification.ml.ModelUnquant;
 
 
 public class MainActivity extends AppCompatActivity {
 
     Button camera, gallery;
     ImageView imageView;
-    TextView result, confidence;
+    TextView result, confidence, quality;
     int imageSize = 32;
 
     @Override
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         gallery = findViewById(R.id.button2);
 
         result = findViewById(R.id.result);
+        //quality = findViewById(R.id.quality);
         confidence = findViewById(R.id.confidence);
         imageView = findViewById(R.id.imageView);
 
@@ -127,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
             String s = "";
             for (int i = 0; i < classes.length; i++) {
-                s += String.format("%s: %.1f%%\n", classes[i], confidences[i]);
+                s += String.format("%s : %.1f%%\n", classes[i], confidences[i]);
             }
             confidence.setText(s);
 
@@ -137,6 +139,63 @@ public class MainActivity extends AppCompatActivity {
             // TODO Handle the exception
         }
     }
+
+    // Integrate the detectFruitQuality function here
+//    public void detectFruitQuality(Bitmap image) {
+//        try {
+//            ModelUnquant qualityModel = ModelUnquant.newInstance(getApplicationContext());
+//
+//            // Creates inputs for reference.
+//            TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.FLOAT32);
+//            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4 * 224 * 224 * 3);
+//            byteBuffer.order(ByteOrder.nativeOrder());
+//
+//            int[] intValues = new int[224 * 224];  // Update this size to match the expected input size
+//            image.getPixels(intValues, 0, image.getWidth(), 0, 0, image.getWidth(), image.getHeight());
+//            int pixel = 0;
+//            // Iterate over each pixel and extract R, G, and B values. Add those values individually to the byte buffer.
+//            for (int i = 0; i < 224; i++) {
+//                for (int j = 0; j < 224; j++) {  // Update this size to match the expected input size
+//                    int val = intValues[pixel++]; // RGB
+//                    byteBuffer.putFloat(((val >> 16) & 0xFF) * (1.f / 255));
+//                    byteBuffer.putFloat(((val >> 8) & 0xFF) * (1.f / 255));
+//                    byteBuffer.putFloat((val & 0xFF) * (1.f / 255));
+//                }
+//            }
+//
+//            inputFeature0.loadBuffer(byteBuffer);
+//
+//            // Runs model inference and gets result.
+//            ModelUnquant.Outputs outputs = qualityModel.process(inputFeature0);
+//            TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
+//
+//            float[] confidences = outputFeature0.getFloatArray();
+//
+//            // Scale all confidences based on the maximum and minimum confidences
+//            for (int i = 0; i < confidences.length; i++) {
+//                Log.d("QualityDetection", "Confidence for class " + i + ": " + confidences[i]);
+//            }
+//
+//            // find the index of the class with the biggest confidence.
+//            int qualityResult = 0;
+//            for (int i = 0; i < confidences.length; i++) {
+//                if (confidences[i] > confidences[qualityResult]) {
+//                    qualityResult = i;
+//                }
+//            }
+//
+//            String[] classes = {"Fresh", "Rotten"};
+//            quality.setText(classes[qualityResult]);
+//
+//            // Update UI or take further action based on quality result
+//
+//
+//            // Releases model resources
+//            qualityModel.close();
+//        } catch (IOException e) {
+//            // TODO Handle the exception
+//        }
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -149,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
 
                 image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false);
                 classifyImage(image);
+               // detectFruitQuality(image);
             }else{
                 Uri dat = data.getData();
                 Bitmap image = null;
@@ -161,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
 
                 image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false);
                 classifyImage(image);
+               // detectFruitQuality(image);
             }
         }
         super.onActivityResult(requestCode, resultCode, data);

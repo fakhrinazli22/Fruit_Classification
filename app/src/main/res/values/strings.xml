@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Fruit Classification</string>
+    <string name="app_name">SmartFruit Classifier</string>
+    <string name="app_intro">Accurate fruit image classification made easy! Upload an image, let our CNN-based model identify the fruit instantly.</string>
 </resources>

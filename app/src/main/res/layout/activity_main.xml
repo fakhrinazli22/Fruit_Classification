@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/orange"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
     <Button
@@ -29,23 +29,51 @@
         android:textStyle="bold"
         />
     <ImageView
-        android:layout_width="370sp"
-        android:layout_height="370sp"
+        android:layout_width="300sp"
+        android:layout_height="300sp"
         android:layout_centerHorizontal="true"
         android:id="@+id/imageView"
         android:layout_marginTop="10sp"
+        android:background="@drawable/rounded_imageview"
         />
+
     <TextView
+        android:id="@+id/classified"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_centerInParent="true"
+        android:text="Classified as:"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/classified"
         android:layout_centerHorizontal="true"
-        android:text="Classified as:"
+        android:text=""
+        android:textColor="#C30000"
         android:textStyle="bold"
-        android:textSize="20sp"
-        android:id="@+id/classified"
+        android:textSize="27sp" />
+
+    <!-- This is a comment in XML
+    <TextView
+        android:id="@+id/ResultQuality"
+        android:layout_width="74dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/imageView"
-        android:layout_marginTop="10sp"
-        />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="174dp"
+        android:layout_marginTop="115dp"
+        android:layout_marginEnd="163dp"
+        android:text="Quality:"
+        android:textColor="@color/grey"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,29 +82,31 @@
         android:textColor="#C30000"
         android:textStyle="bold"
         android:textSize="27sp"
-        android:id="@+id/result"
-        android:layout_below="@+id/classified"
-        />
+        android:id="@+id/quality"
+        android:layout_below="@+id/ResultQuality"
+        /> -->
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/confidencesText"
-        android:text="Accuracy:"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_centerHorizontal="true"
+        android:layout_width="103dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/result"
-        android:layout_marginTop="30sp"
-        />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="74dp"
+        android:text="Accuracy:"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <TextView
+        android:id="@+id/confidence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/confidencesText"
         android:layout_centerHorizontal="true"
         android:text=""
         android:textColor="#000"
-        android:textSize="22sp"
-        android:id="@+id/confidence"
-        android:layout_below="@+id/confidencesText"
-        />
+        android:textSize="22sp" />
+
 
 </RelativeLayout>
